@@ -122,7 +122,7 @@
       const ctx = canvas.getContext("2d");
 
       let particles = [];
-      let mouse = { x: 0, y: 0 };
+      let mouse = { x: -1000, y: -1000 }; // Start off-screen
       let animationId;
 
       // Resize canvas
@@ -279,6 +279,25 @@
       window.addEventListener("mousemove", (e) => {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
+      });
+
+      // Touch event support for mobile
+      window.addEventListener("touchstart", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+      });
+
+      window.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        mouse.x = touch.clientX;
+        mouse.y = touch.clientY;
+      });
+
+      window.addEventListener("touchend", (e) => {
+        e.preventDefault();
       });
 
       // Initialize
