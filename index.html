@@ -113,7 +113,7 @@
       <div class="contact">
         <h3>Get in Touch</h3>
         <p>For inquiries, please contact us at:</p>
-        <a href="mailto:hello@strategy.nu" class="email">hello@strategy.nu</a>
+        <a class="email" id="email-link"></a>
       </div>
     </div>
 
@@ -285,6 +285,10 @@
       resizeCanvas();
       initParticles();
       animate();
+
+      // Obfuscate email
+      const emailParts = ["hello", "@", "strategy", ".", "nu"];
+      document.getElementById("email-link").textContent = emailParts.join("");
     </script>
   </body>
 </html>
