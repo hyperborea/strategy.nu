@@ -321,6 +321,11 @@
         ctx.restore();
       }
 
+      // Score stabilization variables
+      let displayedScore = 0;
+      let scoreUpdateTimer = 0;
+      const SCORE_UPDATE_DELAY = 10; // frames to wait before updating display
+
       // Animation loop
       function animate() {
         ctx.fillStyle = "rgba(29, 25, 102, 0.05)";
@@ -342,8 +347,17 @@
           }
         });
 
-        // Update score display
-        document.getElementById("score").textContent = capturedCount;
+        // Stabilize score updates with debouncing
+        if (Math.abs(capturedCount - displayedScore) > 0) {
+          scoreUpdateTimer++;
+          if (scoreUpdateTimer >= SCORE_UPDATE_DELAY) {
+            displayedScore = capturedCount;
+            document.getElementById("score").textContent = displayedScore;
+            scoreUpdateTimer = 0;
+          }
+        } else {
+          scoreUpdateTimer = 0;
+        }
 
         animationId = requestAnimationFrame(animate);
       }
